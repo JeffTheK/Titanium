@@ -6,6 +6,7 @@ import os
 
 PROJECT_PATH = pathlib.Path(__file__).parent
 PROJECT_UI = PROJECT_PATH / "main.ui"
+AUTO_START_APPS = ["transcript"]
 
 class MainApp:
     def __init__(self, master=None):
@@ -16,6 +17,8 @@ class MainApp:
         builder.connect_callbacks(self)
 
     def run(self):
+        for app in AUTO_START_APPS:
+            os.system(f"cd core_apps/{app}/src/ && python3 main.py &")
         self.mainwindow.mainloop()
 
     def on_open_transcript_button_clicked(self):

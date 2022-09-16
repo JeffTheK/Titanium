@@ -7,7 +7,6 @@ import os
 PROJECT_PATH = pathlib.Path(__file__).parent
 PROJECT_UI = PROJECT_PATH / "main.ui"
 
-
 class MainApp:
     def __init__(self, master=None):
         self.builder = builder = pygubu.Builder()

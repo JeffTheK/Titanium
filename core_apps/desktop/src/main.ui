@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='utf-8'?>
+<interface version="1.2">
+  <object class="tk.Toplevel" id="toplevel1">
+    <property name="geometry">800x600</property>
+    <property name="height">200</property>
+    <property name="title" translatable="yes">Titanium</property>
+    <property name="width">200</property>
+    <child>
+      <object class="ttk.Frame" id="frame_main">
+        <property name="height">200</property>
+        <property name="width">200</property>
+        <layout manager="grid">
+          <property name="column">0</property>
+          <property name="row">0</property>
+          <property name="sticky">nsew</property>
+        </layout>
+      </object>
+    </child>
+    <child>
+      <object class="pygubu.builder.widgets.toplevelmenu" id="toplevelmenu">
+        <child>
+          <object class="tk.Menu" id="top_menu">
+            <property name="tearoff">false</property>
+            <child>
+              <object class="tk.Menuitem.Submenu" id="apps_submenu">
+                <property name="label" translatable="yes">Apps</property>
+                <property name="takefocus">false</property>
+                <property name="tearoff">false</property>
+                <child>
+                  <object class="tk.Menuitem.Command" id="open_transcript_button">
+                    <property name="command" type="command" cbtype="simple">on_open_transcript_button_clicked</property>
+                    <property name="label" translatable="yes">Transcript</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>

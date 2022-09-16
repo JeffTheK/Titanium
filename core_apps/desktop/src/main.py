@@ -2,6 +2,7 @@
 import pathlib
 import tkinter.ttk as ttk
 import pygubu
+import os
 
 PROJECT_PATH = pathlib.Path(__file__).parent
 PROJECT_UI = PROJECT_PATH / "main.ui"
@@ -19,8 +20,7 @@ class MainApp:
         self.mainwindow.mainloop()
 
     def on_open_transcript_button_clicked(self):
-        pass
-
+        os.system("cd core_apps/transcript/src/ && python3 main.py")
 
 if __name__ == "__main__":
     app = MainApp()

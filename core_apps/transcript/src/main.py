@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 import pathlib
 import tkinter.ttk as ttk
+import tkinter as tk
 import pygubu
 import sys
 
@@ -17,6 +18,10 @@ class Transcript:
         self.edit_area = builder.get_object("edit_area")
         self.edit_area.text = builder.get_object("text", self.edit_area)
         builder.connect_callbacks(self)
+
+        self.popup_menu = tk.Menu(self.mainwindow, tearoff=0)
+        self.popup_menu.add_command(label="Do It", command=self.on_do_it_pressed)
+        self.edit_area.text.bind("<Button-3>", self.popup_right_click_menu) # Button-2 on Aqua
 
     def run(self):
         self.mainwindow.mainloop()
@@ -37,6 +42,12 @@ class Transcript:
 
     def stdout_write_redirector(self, input_str):
         self.edit_area.text.insert("end", input_str)
+
+    def popup_right_click_menu(self, event):
+        try:
+            self.popup_menu.tk_popup(event.x_root, event.y_root, 0)
+        finally:
+            self.popup_menu.grab_release()
 
 if __name__ == "__main__":
     app = Transcript()

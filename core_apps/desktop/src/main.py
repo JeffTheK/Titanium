@@ -24,6 +24,9 @@ class MainApp:
     def on_open_transcript_button_clicked(self):
         os.system("cd core_apps/transcript/src/ && python3 main.py")
 
+    def on_open_project_explorer_button_clicked(self):
+        os.system("cd core_apps/project_explorer/src/ && python3 main.py")
+
 if __name__ == "__main__":
     app = MainApp()
     app.run()

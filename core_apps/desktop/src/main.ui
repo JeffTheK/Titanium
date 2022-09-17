@@ -32,6 +32,12 @@
                     <property name="label" translatable="yes">Transcript</property>
                   </object>
                 </child>
+                <child>
+                  <object class="tk.Menuitem.Command" id="open_project_explorer">
+                    <property name="command" type="command" cbtype="simple">on_open_project_explorer_button_clicked</property>
+                    <property name="label" translatable="yes">Project Explorer</property>
+                  </object>
+                </child>
               </object>
             </child>
           </object>

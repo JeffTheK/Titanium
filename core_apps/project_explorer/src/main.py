@@ -6,6 +6,7 @@ import pygubu
 import os
 from ... import code_actions_menu
 from ... import project_runner
+from ... import irontk
 
 PROJECT_PATH = pathlib.Path(__file__).parent
 PROJECT_UI = PROJECT_PATH / "main.ui"
@@ -38,6 +39,9 @@ class MainApp:
         builder.connect_callbacks(self)
         self.load_projects()
         code_actions_menu.setup(self.mainwindow, self.edit_area.text)
+
+        irontk.popup_menu.setup(self.project_tree)
+        self.project_tree.popup_menu.add_command(label="New Project", command=lambda: project_runner.run_project(PROJECT_CREATOR_PATH))
 
         self.edit_area.text.bind('<Control-s>', lambda _: self.save_file())
         self.project_tree.bind('<Control-r>', lambda _: self.run_project())

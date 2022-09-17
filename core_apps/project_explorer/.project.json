@@ -1,0 +1,3 @@
+{
+    "run_command": "cd core_apps/project_explorer/src/ && python3 main.py &"
+}

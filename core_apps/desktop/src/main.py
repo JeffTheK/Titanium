@@ -3,6 +3,7 @@ import pathlib
 import tkinter.ttk as ttk
 import pygubu
 import os
+import json
 
 PROJECT_PATH = pathlib.Path(__file__).parent
 PROJECT_UI = PROJECT_PATH / "main.ui"
@@ -18,14 +19,20 @@ class MainApp:
 
     def run(self):
         for app in AUTO_START_APPS:
-            os.system(f"cd core_apps/{app}/src/ && python3 main.py &")
+            self.run_project(f"core_apps/{app}")
         self.mainwindow.mainloop()
 
+    def run_project(self, path):
+        project_file = open(os.path.join(path, ".project.json"), "r")
+        project_json = json.loads(project_file.read())
+        run_command = project_json["run_command"]
+        os.system(run_command)
+
     def on_open_transcript_button_clicked(self):
-        os.system("python3 -m core_apps.transcript.src.main")
+        self.run_project("core_apps/transcript")
 
     def on_open_project_explorer_button_clicked(self):
-        os.system("cd core_apps/project_explorer/src/ && python3 main.py")
+        self.run_project("core_apps/project_explorer")
 
 if __name__ == "__main__":
     app = MainApp()

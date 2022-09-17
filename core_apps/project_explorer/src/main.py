@@ -5,6 +5,7 @@ import tkinter as tk
 import pygubu
 import os
 from ... import code_actions_menu
+from ... import project_runner
 
 PROJECT_PATH = pathlib.Path(__file__).parent
 PROJECT_UI = PROJECT_PATH / "main.ui"
@@ -38,6 +39,7 @@ class MainApp:
         code_actions_menu.setup(self.mainwindow, self.edit_area.text)
 
         self.edit_area.text.bind('<Control-s>', lambda _: self.save_file())
+        self.project_tree.bind('<Control-r>', lambda _: self.run_project())
 
     def run(self):
         self.mainwindow.mainloop()
@@ -45,6 +47,11 @@ class MainApp:
     def clear_file_tree(self):
         for i in self.file_tree.get_children():
             self.file_tree.delete(i)
+
+    def run_project(self):
+        if self.selected_project == None:
+            return
+        project_runner.run_project(self.selected_project.path)
 
     def save_file(self):
         if self.selected_file == None:

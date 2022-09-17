@@ -47,6 +47,7 @@ class MainApp:
         self.project_tree.popup_menu.add_command(label="New Project", command=lambda: project_runner.run_project(PROJECT_CREATOR_PATH))
 
         irontk.popup_menu.setup(self.file_tree)
+        self.file_tree.popup_menu.add_command(label="New File", command=lambda: self.new_file())
         self.file_tree.popup_menu.add_command(label="Run File", command=lambda: self.run_file())
 
         self.edit_area.text.bind('<Control-s>', lambda _: self.save_file())
@@ -55,6 +56,13 @@ class MainApp:
 
     def run(self):
         self.mainwindow.mainloop()
+
+    def new_file(self):
+        path = pathlib.Path(self.selected_file.path).parent / "new_file.py"
+        name = "new_file.py"
+        file = open(path, "w")
+        self.redraw_file_tree()
+        file.close()
 
     def run_file(self):
         file = open(self.selected_file.path, "r")
@@ -66,6 +74,10 @@ class MainApp:
     def clear_file_tree(self):
         for i in self.file_tree.get_children():
             self.file_tree.delete(i)
+
+    def redraw_file_tree(self):
+        self.clear_file_tree()
+        self.load_project_directory("", self.selected_project.path)
 
     def run_project(self):
         if self.selected_project == None:
@@ -85,8 +97,7 @@ class MainApp:
         self.selected_project = self.project_tree.item(selected_item, "values")
         self.selected_project = Project(self.selected_project[0], self.selected_project[1])
         files = os.listdir(self.selected_project.path)
-        self.clear_file_tree()
-        self.load_project_directory("", self.selected_project.path)
+        self.redraw_file_tree()
 
     def on_file_select(self, event=None):
         selected_item = self.file_tree.selection()[0]

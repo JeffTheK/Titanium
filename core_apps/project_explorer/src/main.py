@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 import pathlib
 import tkinter.ttk as ttk
+import tkinter as tk
 import pygubu
 import os
 from ... import code_actions_menu
@@ -36,12 +37,22 @@ class MainApp:
         self.load_projects()
         code_actions_menu.setup(self.mainwindow, self.edit_area.text)
 
+        self.edit_area.text.bind('<Control-s>', lambda _: self.save_file())
+
     def run(self):
         self.mainwindow.mainloop()
 
     def clear_file_tree(self):
         for i in self.file_tree.get_children():
             self.file_tree.delete(i)
+
+    def save_file(self):
+        if self.selected_file == None:
+            return
+        new_text = self.edit_area.text.get('1.0', tk.END)
+        file = open(self.selected_file.path, "w")
+        file.write(new_text)
+        file.close()
 
     def on_project_select(self, event=None):
         selected_item = self.project_tree.selection()[0]

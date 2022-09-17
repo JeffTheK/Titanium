@@ -7,7 +7,7 @@ import json
 
 PROJECT_PATH = pathlib.Path(__file__).parent
 PROJECT_UI = PROJECT_PATH / "main.ui"
-AUTO_START_APPS = ["transcript"]
+AUTO_START_APPS = ["transcript", "tutorial"]
 
 class MainApp:
     def __init__(self, master=None):

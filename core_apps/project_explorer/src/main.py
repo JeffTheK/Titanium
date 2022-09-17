@@ -11,6 +11,7 @@ from ... import irontk
 PROJECT_PATH = pathlib.Path(__file__).parent
 PROJECT_UI = PROJECT_PATH / "main.ui"
 PROJECT_CREATOR_PATH = PROJECT_PATH.parent.parent / "project_creator"
+PROJECT_RUNNER_PATH = PROJECT_PATH.parent.parent / "project_runner"
 PROJECTS_DIRS = ["core_apps"]
 
 class Project:
@@ -41,6 +42,7 @@ class MainApp:
         code_actions_menu.setup(self.mainwindow, self.edit_area.text)
 
         irontk.popup_menu.setup(self.project_tree)
+        self.project_tree.popup_menu.add_command(label="Run Project", command=lambda: project_runner.run_project(self.selected_project.path))
         self.project_tree.popup_menu.add_command(label="New Project", command=lambda: project_runner.run_project(PROJECT_CREATOR_PATH))
 
         self.edit_area.text.bind('<Control-s>', lambda _: self.save_file())

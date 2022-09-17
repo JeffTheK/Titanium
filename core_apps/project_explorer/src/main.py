@@ -9,6 +9,7 @@ from ... import project_runner
 
 PROJECT_PATH = pathlib.Path(__file__).parent
 PROJECT_UI = PROJECT_PATH / "main.ui"
+PROJECT_CREATOR_PATH = PROJECT_PATH.parent.parent / "project_creator"
 PROJECTS_DIRS = ["core_apps"]
 
 class Project:
@@ -40,6 +41,7 @@ class MainApp:
 
         self.edit_area.text.bind('<Control-s>', lambda _: self.save_file())
         self.project_tree.bind('<Control-r>', lambda _: self.run_project())
+        self.project_tree.bind('<Control-n>', lambda _: project_runner.run_project(PROJECT_CREATOR_PATH))
 
     def run(self):
         self.mainwindow.mainloop()

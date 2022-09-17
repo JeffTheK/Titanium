@@ -1,0 +1,85 @@
+<?xml version='1.0' encoding='utf-8'?>
+<interface version="1.2">
+  <object class="tk.Toplevel" id="toplevel1">
+    <property name="height">200</property>
+    <property name="title" translatable="yes">Project Creator</property>
+    <property name="width">200</property>
+    <child>
+      <object class="ttk.Frame" id="mainwindow">
+        <property name="height">200</property>
+        <property name="width">200</property>
+        <layout manager="grid">
+          <property name="column">0</property>
+          <property name="padx">5</property>
+          <property name="pady">5</property>
+          <property name="row">0</property>
+          <property name="sticky">nsew</property>
+        </layout>
+        <child>
+          <object class="ttk.Label" id="label_project">
+            <property name="text" translatable="yes">Project Name:</property>
+            <layout manager="grid">
+              <property name="column">0</property>
+              <property name="row">0</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Entry" id="project_name_entry">
+            <layout manager="grid">
+              <property name="column">1</property>
+              <property name="row">0</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Label" id="label_language">
+            <property name="text" translatable="yes">Language:</property>
+            <layout manager="grid">
+              <property name="column">0</property>
+              <property name="row">2</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Separator" id="separator1">
+            <property name="orient">vertical</property>
+            <layout manager="grid">
+              <property name="column">0</property>
+              <property name="columnspan">2</property>
+              <property name="padx">3</property>
+              <property name="pady">3</property>
+              <property name="row">1</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="tk.OptionMenu" id="language_option">
+            <property name="command" type="command" cbtype="simple">on_language_selected</property>
+            <property name="value">Python</property>
+            <property name="values">Python</property>
+            <property name="variable">string:selected_language</property>
+            <layout manager="grid">
+              <property name="column">1</property>
+              <property name="row">2</property>
+              <property name="sticky">nsew</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Button" id="create_button">
+            <property name="command" type="command" cbtype="simple">create_project</property>
+            <property name="default">normal</property>
+            <property name="text" translatable="yes">Create Project</property>
+            <layout manager="grid">
+              <property name="column">0</property>
+              <property name="columnspan">2</property>
+              <property name="pady">5 0</property>
+              <property name="row">3</property>
+            </layout>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>

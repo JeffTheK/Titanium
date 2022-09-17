@@ -3,10 +3,11 @@ import pathlib
 import tkinter.ttk as ttk
 import pygubu
 import os
+from ... import code_actions_menu
 
 PROJECT_PATH = pathlib.Path(__file__).parent
 PROJECT_UI = PROJECT_PATH / "main.ui"
-PROJECTS_DIRS = ["../../"]
+PROJECTS_DIRS = ["core_apps"]
 
 class Project:
     def __init__(self, name, path):
@@ -33,6 +34,7 @@ class MainApp:
         self.selected_project = None
         builder.connect_callbacks(self)
         self.load_projects()
+        code_actions_menu.setup(self.mainwindow, self.edit_area.text)
 
     def run(self):
         self.mainwindow.mainloop()

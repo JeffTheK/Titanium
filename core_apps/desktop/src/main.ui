@@ -16,33 +16,5 @@
         </layout>
       </object>
     </child>
-    <child>
-      <object class="pygubu.builder.widgets.toplevelmenu" id="toplevelmenu">
-        <child>
-          <object class="tk.Menu" id="top_menu">
-            <property name="tearoff">false</property>
-            <child>
-              <object class="tk.Menuitem.Submenu" id="apps_submenu">
-                <property name="label" translatable="yes">Apps</property>
-                <property name="takefocus">false</property>
-                <property name="tearoff">false</property>
-                <child>
-                  <object class="tk.Menuitem.Command" id="open_transcript_button">
-                    <property name="command" type="command" cbtype="simple">on_open_transcript_button_clicked</property>
-                    <property name="label" translatable="yes">Transcript</property>
-                  </object>
-                </child>
-                <child>
-                  <object class="tk.Menuitem.Command" id="open_project_explorer">
-                    <property name="command" type="command" cbtype="simple">on_open_project_explorer_button_clicked</property>
-                    <property name="label" translatable="yes">Project Explorer</property>
-                  </object>
-                </child>
-              </object>
-            </child>
-          </object>
-        </child>
-      </object>
-    </child>
   </object>
 </interface>

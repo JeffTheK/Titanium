@@ -22,7 +22,7 @@ class MainApp:
         self.mainwindow.mainloop()
 
     def on_open_transcript_button_clicked(self):
-        os.system("cd core_apps/transcript/src/ && python3 main.py")
+        os.system("python3 -m core_apps.transcript.src.main")
 
     def on_open_project_explorer_button_clicked(self):
         os.system("cd core_apps/project_explorer/src/ && python3 main.py")

@@ -7,6 +7,7 @@ import os
 from ... import code_actions_menu
 from ... import project_runner
 from ... import irontk
+from ... import code_runner
 
 PROJECT_PATH = pathlib.Path(__file__).parent
 PROJECT_UI = PROJECT_PATH / "main.ui"
@@ -45,12 +46,22 @@ class MainApp:
         self.project_tree.popup_menu.add_command(label="Run Project", command=lambda: project_runner.run_project(self.selected_project.path))
         self.project_tree.popup_menu.add_command(label="New Project", command=lambda: project_runner.run_project(PROJECT_CREATOR_PATH))
 
+        irontk.popup_menu.setup(self.file_tree)
+        self.file_tree.popup_menu.add_command(label="Run File", command=lambda: self.run_file())
+
         self.edit_area.text.bind('<Control-s>', lambda _: self.save_file())
         self.project_tree.bind('<Control-r>', lambda _: self.run_project())
         self.project_tree.bind('<Control-n>', lambda _: project_runner.run_project(PROJECT_CREATOR_PATH))
 
     def run(self):
         self.mainwindow.mainloop()
+
+    def run_file(self):
+        file = open(self.selected_file.path, "r")
+        output, out_text = code_runner.run_code(file.read(), "python")
+        self.edit_area.text.delete('1.0', tk.END)
+        self.edit_area.text.insert('1.0', out_text)
+        file.close()
 
     def clear_file_tree(self):
         for i in self.file_tree.get_children():

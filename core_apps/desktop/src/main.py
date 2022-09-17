@@ -5,6 +5,7 @@ import tkinter as tk
 import pygubu
 import os
 import json
+from ... import project_runner
 
 PROJECT_PATH = pathlib.Path(__file__).parent
 PROJECT_UI = PROJECT_PATH / "main.ui"
@@ -28,28 +29,22 @@ class MainApp:
         for code_tool in CODE_TOOLS:
             name = code_tool.replace("_", " ")
             name = name.title()
-            code_tools.add_command(label=name, command=lambda: self.run_project(f"core_apps/{code_tool}"))
+            code_tools.add_command(label=name, command=lambda: project_runner.run_project(f"core_apps/{code_tool}"))
         self.menubar.add_cascade(label="Code Tools", menu=code_tools)
 
         help_apps = tk.Menu(self.menubar, tearoff=0)
         for app in HELP_APPS:
             name = app.replace("_", " ")
             name = name.title()
-            help_apps.add_command(label=name, command=lambda: self.run_project(f"core_apps/{app}"))
+            help_apps.add_command(label=name, command=lambda: project_runner.run_project(f"core_apps/{app}"))
         self.menubar.add_cascade(label="Help", menu=help_apps)
 
         self.mainwindow.config(menu=self.menubar)
 
     def run(self):
         for app in AUTO_START_APPS:
-            self.run_project(f"core_apps/{app}")
+            project_runner.run_project(f"core_apps/{app}")
         self.mainwindow.mainloop()
-
-    def run_project(self, path):
-        project_file = open(os.path.join(path, ".project.json"), "r")
-        project_json = json.loads(project_file.read())
-        run_command = project_json["run_command"]
-        os.system(run_command)
 
 if __name__ == "__main__":
     app = MainApp()

@@ -1,2 +1,2 @@
 run:
-	python3 core_apps/desktop/src/main.py
+	python3 -m core_apps.desktop.src.main

@@ -17,7 +17,11 @@ def run_python_code(code):
     sys.stdout.write = stdout_write_redirector
     sys.stderr.write = stdout_write_redirector
 
-    output = exec(code)
+    output = None
+    try:
+        output = exec(code)
+    except Exception as e:
+        output = e
 
     sys.stdout.write = original_stdout_write
     sys.stderr.write = original_stderr_write

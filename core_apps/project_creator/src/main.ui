@@ -57,7 +57,7 @@
           <object class="tk.OptionMenu" id="language_option">
             <property name="command" type="command" cbtype="simple">on_language_selected</property>
             <property name="value">Python</property>
-            <property name="values">Python</property>
+            <property name="values">Python,C,C++</property>
             <property name="variable">string:selected_language</property>
             <layout manager="grid">
               <property name="column">1</property>

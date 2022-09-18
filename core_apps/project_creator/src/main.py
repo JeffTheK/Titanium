@@ -7,7 +7,7 @@ import os
 
 PROJECT_PATH = pathlib.Path(__file__).parent
 PROJECT_UI = PROJECT_PATH / "main.ui"
-SUPPORTED_LANGUAGES = ["python"]
+SUPPORTED_LANGUAGES = ["python", "c", "c++"]
 NEW_PROJECT_PATH = PROJECT_PATH.parent.parent
 
 PROJECT_JSON_FILE_TEMPLATE = """ {
@@ -38,6 +38,12 @@ class MainApp:
         if self.selected_language == "python":
             from . import python
             python.create_python_project(project_name, project_path)
+        elif self.selected_language == "c":
+            from . import c
+            c.create_c_project(project_name, project_path)
+        elif self.selected_language == "c++":
+            from . import cpp
+            cpp.create_cpp_project(project_name, project_path)
         self.mainwindow.destroy()
 
     def run(self):

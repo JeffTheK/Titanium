@@ -48,9 +48,11 @@ class MainApp:
 
         irontk.popup_menu.setup(self.file_tree)
         self.file_tree.popup_menu.add_command(label="New File", command=lambda: self.new_file())
+        self.file_tree.popup_menu.add_command(label="Rename File", command=lambda: self.rename_file())
         self.file_tree.popup_menu.add_command(label="Run File", command=lambda: self.run_file())
 
         self.edit_area.text.bind('<Control-s>', lambda _: self.save_file())
+        self.file_tree.bind('<F2>', lambda _: self.rename_file())
         self.project_tree.bind('<Control-r>', lambda _: self.run_project())
         self.project_tree.bind('<Control-n>', lambda _: project_runner.run_project(PROJECT_CREATOR_PATH))
 
@@ -63,6 +65,28 @@ class MainApp:
         file = open(path, "w")
         self.redraw_file_tree()
         file.close()
+
+    def rename_file(self):
+        self.file_tree.bind("<KeyPress>", self.on_file_rename)
+
+    def on_file_rename(self, event):
+        selected_item = self.file_tree.selection()[0]
+        print(event.keysym)
+        if event.keysym == "BackSpace":
+            new_name = self.selected_file.name[:-1]
+            self.file_tree.item(selected_item, text=new_name)
+            self.selected_file.name = new_name
+        elif event.keysym == "Return":
+            self.file_tree.unbind("<KeyPress>")
+            new_path = pathlib.Path(self.selected_file.path).parent / self.selected_file.name
+            os.rename(self.selected_file.path, new_path)
+        elif event.keysym == "Escape":
+            self.file_tree.unbind("<KeyPress>")
+            self.redraw_file_tree()
+        else:
+            new_name = self.selected_file.name + event.char
+            self.file_tree.item(selected_item, text=new_name)
+            self.selected_file.name = new_name
 
     def run_file(self):
         file = open(self.selected_file.path, "r")

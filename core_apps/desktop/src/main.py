@@ -29,14 +29,14 @@ class MainApp:
         for code_tool in CODE_TOOLS:
             name = code_tool.replace("_", " ")
             name = name.title()
-            code_tools.add_command(label=name, command=lambda: project_runner.run_project(f"core_apps/{code_tool}"))
+            code_tools.add_command(label=name, command=lambda path=f"core_apps/{code_tool}": project_runner.run_project(path))
         self.menubar.add_cascade(label="Code Tools", menu=code_tools)
 
         help_apps = tk.Menu(self.menubar, tearoff=0)
         for app in HELP_APPS:
             name = app.replace("_", " ")
             name = name.title()
-            help_apps.add_command(label=name, command=lambda: project_runner.run_project(f"core_apps/{app}"))
+            help_apps.add_command(label=name, command=lambda path=f"core_apps/{app}": project_runner.run_project(path))
         self.menubar.add_cascade(label="Help", menu=help_apps)
 
         self.mainwindow.config(menu=self.menubar)

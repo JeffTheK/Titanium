@@ -6,6 +6,7 @@ import tkinter as tk
 import pygubu
 import sys
 from ... import code_actions_menu
+from ... import code_runner
 
 PROJECT_PATH = pathlib.Path(__file__).parent
 PROJECT_UI = PROJECT_PATH / "main.ui"
@@ -22,6 +23,11 @@ class Transcript:
         builder.connect_callbacks(self)
 
         code_actions_menu.setup(self.mainwindow, self.edit_area.text)
+
+    def on_do_it_pressed(self):
+        code = self.edit_area.text.get('1.0', tk.END)
+        output, out_text = code_runner.run_code(code, "python")
+        self.edit_area.text.insert(tk.END, out_text)
 
     def run(self):
         self.mainwindow.mainloop()

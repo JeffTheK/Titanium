@@ -72,6 +72,16 @@
                 </layout>
               </object>
             </child>
+            <child>
+              <object class="tk.OptionMenu" id="language_option">
+                <property name="command" type="command" cbtype="simple">on_language_selected</property>
+                <property name="value">Python</property>
+                <property name="values">Python,C,C++</property>
+                <layout manager="pack">
+                  <property name="side">top</property>
+                </layout>
+              </object>
+            </child>
           </object>
         </child>
       </object>

@@ -26,8 +26,11 @@ class Transcript:
 
     def on_do_it_pressed(self):
         code = self.edit_area.text.get('1.0', tk.END)
-        output, out_text = code_runner.run_code(code, "python")
+        output, out_text = code_runner.run_code(code, self.selected_language)
         self.edit_area.text.insert(tk.END, out_text)
+
+    def on_language_selected(self, selection):
+        self.selected_language = selection.lower()
 
     def run(self):
         self.mainwindow.mainloop()

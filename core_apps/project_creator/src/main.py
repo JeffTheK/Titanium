@@ -22,6 +22,7 @@ class MainApp:
         builder.add_from_file(PROJECT_UI)
         self.mainwindow = builder.get_object("toplevel1", master)
         self.project_name_entry = builder.get_object("project_name_entry", master)
+        self.selected_language = "python"
 
         self.__tkvar = None
         builder.import_variables(self, ["__tkvar"])
@@ -34,15 +35,10 @@ class MainApp:
     def create_project(self):
         project_name = self.project_name_entry.get()
         project_path = NEW_PROJECT_PATH / project_name
-        os.mkdir(project_path)
-        os.mkdir(project_path / "src")
-        self.create_project_json_file(project_name, project_path)
+        if self.selected_language == "python":
+            from . import python
+            python.create_python_project(project_name, project_path)
         self.mainwindow.destroy()
-
-    def create_project_json_file(self, project_name, project_path):
-        project_json_file = open(os.path.join(project_path, ".project.json"), "w")
-        project_json_file.write(PROJECT_JSON_FILE_TEMPLATE.replace("PROJECT_NAME", project_name))
-        project_json_file.close()
 
     def run(self):
         self.mainwindow.mainloop()

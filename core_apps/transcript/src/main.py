@@ -20,6 +20,10 @@ class Transcript:
         self.mainwindow = builder.get_object("toplevel1", master)
         self.edit_area = builder.get_object("edit_area")
         self.edit_area.text = builder.get_object("text", self.edit_area)
+        self.language_option = builder.get_object("language_option", master)
+        self.language_option['menu'].delete(0, tk.END)
+        for lang in code_runner.SUPPORTED_LANGUAGES:
+            self.language_option['menu'].add_command(label=lang.title(), command=lambda x=lang: self.on_language_selected(x))
         builder.connect_callbacks(self)
 
         code_actions_menu.setup(self.mainwindow, self.edit_area.text)

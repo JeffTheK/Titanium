@@ -11,6 +11,7 @@ PROJECT_PATH = pathlib.Path(__file__).parent
 PROJECT_UI = PROJECT_PATH / "main.ui"
 AUTO_START_APPS = ["transcript", "tutorial"]
 CODE_TOOLS = ["transcript", "project_explorer"]
+SYSTEM_APPS = ["finder"]
 HELP_APPS = ["tutorial"]
 
 class MainApp:
@@ -31,6 +32,13 @@ class MainApp:
             name = name.title()
             code_tools.add_command(label=name, command=lambda path=f"core_apps/{code_tool}": project_runner.run_project(path))
         self.menubar.add_cascade(label="Code Tools", menu=code_tools)
+
+        system_apps = tk.Menu(self.menubar, tearoff=0)
+        for app in SYSTEM_APPS:
+            name = app.replace("_", " ")
+            name = name.title()
+            system_apps.add_command(label=name, command=lambda path=f"core_apps/{app}": project_runner.run_project(path))
+        self.menubar.add_cascade(label="System", menu=system_apps)
 
         help_apps = tk.Menu(self.menubar, tearoff=0)
         for app in HELP_APPS:

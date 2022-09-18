@@ -1,6 +1,6 @@
 import sys
 
-SUPPORTED_LANGUAGES = ["python", "c", "c++"]
+SUPPORTED_LANGUAGES = ["python", "c", "c++", "bash"]
 OUT_TEXT = ""
 
 def run_code(code, language):
@@ -13,5 +13,8 @@ def run_code(code, language):
     elif language == "c++":
         from . import cpp
         return cpp.run_code(code)
+    elif language == "bash":
+        from . import bash
+        return bash.run_code(code)
     else:
         raise Exception

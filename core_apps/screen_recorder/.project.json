@@ -1,0 +1,3 @@
+{
+    "run_command": "python3 -m core_apps.screen_recorder.src.main &"
+}

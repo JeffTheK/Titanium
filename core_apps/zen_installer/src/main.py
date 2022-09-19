@@ -2,6 +2,7 @@
 import tkinter as tk
 import tkinter.ttk as ttk
 import webbrowser
+import platform
 
 class ZenInstaller:
     def __init__(self, master=None):
@@ -16,11 +17,19 @@ class ZenInstaller:
         self.zeal_button.configure(text="Install Zeal", command=self.install_zeal)
         self.zeal_button.grid(column="0", row="0")
 
+        self.gcc_button = ttk.Button(self.main_frame)
+        self.gcc_button.configure(text="Install GCC", command=self.install_gcc)
+        self.gcc_button.grid(column="1", row="0")
+
         # Main widget
         self.main_window = self.main_frame
 
     def install_zeal(self):
         webbrowser.open("https://zealdocs.org/")
+
+    def install_gcc(self):
+        if (platform.system() == "Windows"):
+            webbrowser.open("https://cygwin.com/install.html")
 
     def run(self):
         self.main_window.mainloop()

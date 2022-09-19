@@ -20,6 +20,10 @@ class MainApp:
         builder.connect_callbacks(self)
         self.setup_menu()
 
+    def exe_exists(self, name):
+        from shutil import which
+        return which(name) is not None
+
     def setup_menu(self):
         self.menubar = tk.Menu(self.mainwindow)
 
@@ -37,6 +41,10 @@ class MainApp:
 
         help_apps = tk.Menu(self.menubar, tearoff=0)
         help_apps.add_command(label="Tutorial", command=lambda: project_runner.run_project("core_apps/tutorial"))
+        if (self.exe_exists("zeal")):
+            help_apps.add_command(label="Zeal", command=lambda: os.system("zeal"))
+        else:
+            help_apps.add_command(label="Zeal", command=lambda: os.system("zeal"), state=tk.DISABLED)
         self.menubar.add_cascade(label="Help", menu=help_apps)
 
         self.mainwindow.config(menu=self.menubar)

@@ -47,6 +47,10 @@ class MainApp:
             help_apps.add_command(label="Zeal", command=lambda: os.system("zeal"), state=tk.DISABLED)
         self.menubar.add_cascade(label="Help", menu=help_apps)
 
+        other_apps = tk.Menu(self.menubar, tearoff=0)
+        self.menubar.add_cascade(label="Other", menu=other_apps)
+        other_apps.add_command(label="Zen Installer", command=lambda: project_runner.run_project("core_apps/zen_installer"))
+
         self.mainwindow.config(menu=self.menubar)
 
     def run(self):

@@ -6,6 +6,7 @@ import webbrowser
 class ZenInstaller:
     def __init__(self, master=None):
         # build ui
+        master.title("Zen Installer")
         self.main_frame = ttk.Frame(master)
         self.main_frame.configure(height="200", width="200")
         self.main_frame.grid(column="0", row="0")

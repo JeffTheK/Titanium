@@ -47,6 +47,7 @@ class CodeYard:
 
         file_menu = tk.Menu(self.menubar, tearoff=0)
         self.menubar.add_cascade(label="File", menu=file_menu)
+        file_menu.add_command(label="New File", command=self.new_file)
         file_menu.add_command(label="Open File", command=self.open_file)
 
     def clear_edit_area(self):
@@ -55,6 +56,13 @@ class CodeYard:
     def redraw_edit_area(self, text):
         self.clear_edit_area()
         self.edit_area.text.insert("1.0", text)
+
+    def new_file(self):
+        if self.selected_file != None:
+            self.selected_file.file.close()
+
+        self.clear_edit_area()
+        self.selected_file = None
 
     def open_file(self):
         if self.selected_file != None:

@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 from importlib.resources import path
 from datetime import datetime
+from ... import tkinter_themes
 import tkinter as tk
 import tkinter.ttk as ttk
 import os
@@ -41,6 +42,8 @@ class Screenshot:
         self.main_window = self.main_frame
         master.rowconfigure("0", weight="1")
         master.columnconfigure("0", weight="1")
+
+        tkinter_themes.setup_global_tkinter_theme(root)
 
     def take_whole_screen_screenshot(self):
         if platform.system() == "Windows" or platform.system() == "Darwin":

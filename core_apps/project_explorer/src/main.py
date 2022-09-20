@@ -8,6 +8,7 @@ from ... import code_actions_menu
 from ... import project_runner
 from ... import irontk
 from ... import code_runner
+from ... import tkinter_themes
 
 PROJECT_PATH = pathlib.Path(__file__).parent
 PROJECT_UI = PROJECT_PATH / "main.ui"
@@ -55,6 +56,8 @@ class MainApp:
         self.file_tree.bind('<F2>', lambda _: self.rename_file())
         self.project_tree.bind('<Control-r>', lambda _: self.run_project())
         self.project_tree.bind('<Control-n>', lambda _: project_runner.run_project(PROJECT_CREATOR_PATH))
+
+        tkinter_themes.setup_global_tkinter_theme(self.mainwindow)
 
     def run(self):
         self.mainwindow.mainloop()

@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 from distutils.command.build import build
+from ... import tkinter_themes
 import pathlib
 import tkinter.ttk as ttk
 import pygubu
@@ -28,6 +29,8 @@ class MainApp:
         builder.import_variables(self, ["__tkvar"])
 
         builder.connect_callbacks(self)
+
+        tkinter_themes.setup_global_tkinter_theme(self.mainwindow)
 
     def on_language_selected(self, selection):
         self.selected_language = selection.lower()

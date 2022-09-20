@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 from importlib.resources import is_resource
+from ... import tkinter_themes
 import tkinter as tk
 import tkinter.ttk as ttk
 import datetime
@@ -46,6 +47,8 @@ class ScreenRecorder:
         self.resolution = (1920, 1080)
         self.codec = cv2.VideoWriter_fourcc(*"XVID")
         self.fps = 16
+
+        tkinter_themes.setup_global_tkinter_theme(root)
 
         self.update_timer()
 

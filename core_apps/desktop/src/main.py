@@ -6,6 +6,7 @@ import pygubu
 import os
 import json
 from ... import project_runner
+from ... import tkinter_themes
 
 PROJECT_PATH = pathlib.Path(__file__).parent
 PROJECT_UI = PROJECT_PATH / "main.ui"
@@ -54,6 +55,7 @@ class MainApp:
         other_apps.add_command(label="Zen Installer", command=lambda: project_runner.run_project("core_apps/zen_installer"))
 
         self.mainwindow.config(menu=self.menubar)
+        tkinter_themes.setup_global_tkinter_theme(self.mainwindow)
 
     def run(self):
         for app in AUTO_START_APPS:

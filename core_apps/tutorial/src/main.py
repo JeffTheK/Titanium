@@ -4,6 +4,7 @@ import tkinter.ttk as ttk
 import tkinter as tk
 import pygubu
 import os
+from ... import tkinter_themes
 
 PROJECT_PATH = pathlib.Path(__file__).parent
 PROJECT_UI = PROJECT_PATH / "main.ui"
@@ -19,6 +20,8 @@ class MainApp:
         self.text = builder.get_object("text", master)
         builder.connect_callbacks(self)
         self.setup_pages()
+
+        tkinter_themes.setup_global_tkinter_theme(self.mainwindow)
 
     def run(self):
         self.mainwindow.mainloop()

@@ -4,6 +4,7 @@ import tkinter.ttk as ttk
 import tkinter as tk
 import pygubu
 import glob
+from ... import tkinter_themes
 
 PROJECT_PATH = pathlib.Path(__file__).parent
 PROJECT_UI = PROJECT_PATH / "main.ui"
@@ -18,6 +19,8 @@ class Finder:
         self.search_entry = builder.get_object("search_entry", master)
         self.results_tree = builder.get_object("results_tree", master)
         builder.connect_callbacks(self)
+
+        tkinter_themes.setup_global_tkinter_theme(self.mainwindow)
 
     def run(self):
         self.mainwindow.mainloop()

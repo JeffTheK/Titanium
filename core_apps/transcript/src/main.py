@@ -7,6 +7,7 @@ import pygubu
 import sys
 from ... import code_actions_menu
 from ... import code_runner
+from ... import tkinter_themes
 
 PROJECT_PATH = pathlib.Path(__file__).parent
 PROJECT_UI = PROJECT_PATH / "main.ui"
@@ -24,6 +25,8 @@ class Transcript:
         builder.connect_callbacks(self)
 
         code_actions_menu.setup(self.mainwindow, self.edit_area.text)
+
+        tkinter_themes.setup_global_tkinter_theme(self.mainwindow)
 
     def on_do_it_pressed(self):
         code = self.edit_area.text.get('1.0', tk.END)

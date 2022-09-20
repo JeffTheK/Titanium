@@ -3,6 +3,7 @@ import tkinter as tk
 import tkinter.ttk as ttk
 import tkinter.filedialog
 import pathlib
+import os
 from ... import tkinter_themes
 
 class File:
@@ -31,6 +32,7 @@ class CodeYard:
         self.edit_area.text = tk.Text(self.edit_area)
         self.edit_area.text.grid(column=0, row=1, sticky="nsew")
 
+        self.selected_directory = os.getcwd()
         self.selected_file = None
 
         # Main widget
@@ -39,6 +41,7 @@ class CodeYard:
         tkinter_themes.setup_global_tkinter_theme(root)
 
         self.setup_top_menu()
+        self.redraw_file_explorer(self.selected_directory)
 
     def setup_top_menu(self):
         self.menubar = tk.Menu(root)
@@ -56,6 +59,22 @@ class CodeYard:
     def redraw_edit_area(self, text):
         self.clear_edit_area()
         self.edit_area.text.insert("1.0", text)
+
+    def clear_file_explorer(self):
+        self.file_explorer.tree.delete(*self.file_explorer.tree.get_children())
+
+    def redraw_file_explorer(self, directory):
+        self.clear_file_explorer()
+        self.walk_directory("", directory)
+
+    def walk_directory(self, parent_dir, path):
+        for item in os.listdir(path):
+            item_full_path = os.path.join(path, item)
+            self.file_explorer.tree.insert("", "end", iid=item_full_path, values=(item, item_full_path), text=item, open=False)
+            if parent_dir != "":
+                self.file_explorer.tree.move(item_full_path, path, "end")
+            if os.path.isdir(item_full_path):
+                self.walk_directory (path, item_full_path)
 
     def save_file(self):
         if self.selected_file == None:

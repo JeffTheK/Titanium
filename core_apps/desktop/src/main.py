@@ -48,6 +48,10 @@ class MainApp:
     def setup_menu(self):
         self.menubar = tk.Menu(self.mainwindow)
 
+        titanium_menu = tk.Menu(self.menubar, tearoff=0)
+        self.menubar.add_cascade(label="Titanium", menu=titanium_menu)
+        titanium_menu.add_command(label="Settings", command=lambda: project_runner.run_project("core_apps/settings"))
+
         code_tools = tk.Menu(self.menubar, tearoff=0)
         self.menubar.add_cascade(label="Code Tools", menu=code_tools)
         code_tools.add_command(label="Transcript", command=lambda: project_runner.run_project("core_apps/transcript"))

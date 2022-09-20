@@ -67,6 +67,9 @@ class CodeYard:
 
     def save_file_as(self):
         path = tkinter.filedialog.asksaveasfilename()
+        if len(path) == 0:
+            return
+
         path = pathlib.Path(path)
         name = path.name
         self.selected_file = File(path, name)
@@ -81,10 +84,9 @@ class CodeYard:
         self.selected_file = None
 
     def open_file(self):
-        if self.selected_file != None:
-            self.selected_file.file.close()
-
         path = tkinter.filedialog.askopenfilename()
+        if len(path) == 0:
+            return
         path = pathlib.Path(path)
         name = path.name
         self.selected_file = File(path, name)

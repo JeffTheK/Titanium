@@ -4,4 +4,4 @@ import os
 
 PIP_REQUIREMENTS = [ "pygubu", "pyautogui", "opencv-python" ]
 
-os.system("pip install " + " ".join(PIP_REQUIREMENTS))
+os.system("pip3 install " + " ".join(PIP_REQUIREMENTS))

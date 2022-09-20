@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 import pathlib
+from tkinter.tix import AUTO
 import tkinter.ttk as ttk
 import tkinter as tk
 import pygubu
@@ -10,6 +11,8 @@ from ... import tkinter_themes
 
 PROJECT_PATH = pathlib.Path(__file__).parent
 PROJECT_UI = PROJECT_PATH / "main.ui"
+SETTINGS_FILES_DIR = pathlib.Path.home() / ".titanium"
+SETTINGS_FILE_PATH = SETTINGS_FILES_DIR / "desktop.json"
 AUTO_START_APPS = ["transcript", "tutorial"]
 
 class MainApp:
@@ -20,6 +23,23 @@ class MainApp:
         self.mainwindow = builder.get_object("toplevel1", master)
         builder.connect_callbacks(self)
         self.setup_menu()
+        self.load_settings()
+
+    def load_settings(self):
+        if not os.path.exists(SETTINGS_FILES_DIR):
+            os.mkdir(SETTINGS_FILES_DIR)
+        file = SETTINGS_FILE_PATH.open()
+        text = file.read()
+        if text == "":
+            from . import default_settings
+            file.write(default_settings.DEFAULT_SETTINGS_TEXT)
+            text = file.read()
+        
+        global AUTO_START_APPS
+        json_data = json.loads(text)
+        AUTO_START_APPS = json_data["auto_start_apps"]
+
+        file.close()
 
     def exe_exists(self, name):
         from shutil import which

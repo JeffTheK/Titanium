@@ -56,6 +56,7 @@ class MainApp:
         self.menubar.add_cascade(label="Code Tools", menu=code_tools)
         code_tools.add_command(label="Transcript", command=lambda: project_runner.run_project("core_apps/transcript"))
         code_tools.add_command(label="Project Explorer", command=lambda: project_runner.run_project("core_apps/project_explorer"))
+        code_tools.add_command(label="Code Yard", command=lambda: project_runner.run_project("core_apps/code_yard"))
         code_tools_other = tk.Menu(code_tools, tearoff=0)
         code_tools_other.add_command(label="Project Creator", command=lambda: project_runner.run_project("core_apps/project_creator"))
         code_tools.add_cascade(label="Other", menu=code_tools_other)

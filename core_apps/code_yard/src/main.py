@@ -9,7 +9,6 @@ class File:
     def __init__(self, name, path):
         self.name = name
         self.path = path
-        self.file = open(path)
     
 class CodeYard:
     def __init__(self, master=None):
@@ -49,6 +48,7 @@ class CodeYard:
         self.menubar.add_cascade(label="File", menu=file_menu)
         file_menu.add_command(label="New File", command=self.new_file)
         file_menu.add_command(label="Open File", command=self.open_file)
+        file_menu.add_command(label="Save File", command=self.save_file)
 
     def clear_edit_area(self):
         self.edit_area.text.delete("1.0", tk.END)
@@ -56,6 +56,22 @@ class CodeYard:
     def redraw_edit_area(self, text):
         self.clear_edit_area()
         self.edit_area.text.insert("1.0", text)
+
+    def save_file(self):
+        if self.selected_file == None:
+            self.save_file_as()
+        else:
+            file = open(self.selected_file.path, "w")
+            file.write(self.edit_area.text.get("1.0", tk.END))
+            file.close()
+
+    def save_file_as(self):
+        path = tkinter.filedialog.asksaveasfilename()
+        path = pathlib.Path(path)
+        name = path.name
+        self.selected_file = File(path, name)
+        self.edit_area.selected_file_label.configure(text=name)
+        self.save_file()
 
     def new_file(self):
         if self.selected_file != None:
@@ -73,7 +89,7 @@ class CodeYard:
         name = path.name
         self.selected_file = File(path, name)
         self.clear_edit_area()
-        self.redraw_edit_area(self.selected_file.file.read())
+        self.redraw_edit_area(open(self.selected_file.path, "r").read())
         self.edit_area.selected_file_label.configure(text=name)
 
     def run(self):

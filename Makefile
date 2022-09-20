@@ -1,2 +1,2 @@
 run:
-	python3 -m core_apps.desktop.src.main
+	python3 scripts/launch.py

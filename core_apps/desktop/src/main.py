@@ -28,7 +28,12 @@ class MainApp:
     def load_settings(self):
         if not os.path.exists(SETTINGS_FILES_DIR):
             os.mkdir(SETTINGS_FILES_DIR)
-        file = SETTINGS_FILE_PATH.open()
+        if not os.path.exists(SETTINGS_FILE_PATH):
+            from . import default_settings
+            file = open(SETTINGS_FILE_PATH, "w")
+            file.write(default_settings.DEFAULT_SETTINGS_TEXT)
+            file.close()
+        file = SETTINGS_FILE_PATH.open("r")
         text = file.read()
         if text == "":
             from . import default_settings

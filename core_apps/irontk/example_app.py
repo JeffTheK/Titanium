@@ -3,10 +3,11 @@ import tkinter as tk
 import tkinter.ttk as ttk
 from .popup_menu import PopupMenu
 from .file_tree import FileTree
+from .frame import Frame
 
 class ExampleApp:
     def __init__(self, master=None):
-        self.frame1 = ttk.Frame(master)
+        self.frame1 = Frame(master)
 
         # build ui
         self.label1 = ttk.Label(master, text="right click me!")

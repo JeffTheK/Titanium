@@ -1,1 +1,1 @@
-from . import popup_menu
+from .popup_menu import PopupMenu

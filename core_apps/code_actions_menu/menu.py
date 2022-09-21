@@ -11,7 +11,7 @@ class CodeActionsWidget:
         master.code_actions_widget = self
         self.language = "python"
         self.edit_area_text = edit_area_text
-        irontk.popup_menu.setup(self.edit_area_text)
+        self.edit_area_text.popup_menu = irontk.PopupMenu(self.edit_area_text)
         self.do_it_image = tk.PhotoImage(file=Path( __file__ ).parent / "do_it.png")
         self.edit_area_text.popup_menu.add_command(label=" Do It", command=self.on_do_it_pressed, image=self.do_it_image, compound="left")
 

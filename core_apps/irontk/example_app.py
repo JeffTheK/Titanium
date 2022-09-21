@@ -2,6 +2,7 @@
 import tkinter as tk
 import tkinter.ttk as ttk
 from .popup_menu import PopupMenu
+from .file_tree import FileTree
 
 class ExampleApp:
     def __init__(self, master=None):
@@ -14,6 +15,9 @@ class ExampleApp:
         self.label1.popupmenu.add_command(label="Option2", command=lambda: print("Option2"))
         self.label1.popupmenu.add_command(label="Option2", command=lambda: print("Option3"))
         self.label1.grid(row=0, column=0)
+
+        self.file_tree = FileTree(master, "./")
+        self.file_tree.grid(row=1, column=0)
 
         # Main widget
         self.mainwindow = self.frame1

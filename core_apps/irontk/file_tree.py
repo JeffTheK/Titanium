@@ -1,10 +1,13 @@
+import imp
 import tkinter as tk
 import tkinter.ttk as ttk
 import os
+from . import default_settings
 
 class FileTree(ttk.Treeview):
     def __init__(self, master, directory=None):
         ttk.Treeview.__init__(self, master)
+        default_settings.setup(self)
         self.directory = directory
         if self.directory != None:
             self.redraw()

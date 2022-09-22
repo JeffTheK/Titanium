@@ -26,6 +26,7 @@ class CodeYard:
         self.file_explorer.grid(column=0, row=0, padx=5, pady=5, sticky="nsew")
         self.file_explorer.tree = ttk.Treeview(self.file_explorer, height=20)
         self.file_explorer.tree.grid(column=0, row=0, padx=5, pady=5, sticky="ns")
+        self.file_explorer.tree.bind("<<TreeviewSelect>>", lambda _: self.on_file_explorer_item_select())
 
         self.edit_area = ttk.Frame(master)
         self.edit_area.grid(column=1, row=0, padx=5, pady=5, sticky="nsew")
@@ -124,7 +125,7 @@ class CodeYard:
         self.clear_edit_area()
         self.redraw_edit_area(open(self.selected_file.path, "r").read())
         self.edit_area.selected_file_label.configure(text=name)
-    
+
     def on_close_window(self):
         if self.selected_file != None and self.selected_file.has_unsaved_changes:
             answer = tkinter.messagebox.askokcancel("Question", f"File '{self.selected_file.name}' has unsaved changes, proceed?")
@@ -134,6 +135,26 @@ class CodeYard:
 
     def run(self):
         self.mainwindow.mainloop()
+
+    def on_file_explorer_item_select(self):
+        selected_item = self.file_explorer.tree.selection()[0]
+        selected_item = self.file_explorer.tree.item(selected_item, "values")
+        selected_item = File(selected_item[0], selected_item[1])
+
+        if os.path.isdir(selected_item.path):
+            return
+        if self.selected_file != None and self.selected_file.has_unsaved_changes:
+            answer = tkinter.messagebox.askokcancel("Question", f"File '{self.selected_file.name}' has unsaved changes, proceed?")
+            if answer != True:
+                return
+
+        self.selected_file = selected_item
+        self.edit_area.selected_file_label.configure(text=self.selected_file.name)
+        self.clear_edit_area()
+        file = open(self.selected_file.path, "r")
+        text = file.read()
+        file.close()
+        self.edit_area.text.insert("1.0", text)
 
 if __name__ == "__main__":
     root = tk.Tk()

@@ -96,9 +96,6 @@ class CodeYard:
         self.save_file()
 
     def new_file(self):
-        if self.selected_file != None:
-            self.selected_file.file.close()
-
         self.clear_edit_area()
         self.selected_file = None
 

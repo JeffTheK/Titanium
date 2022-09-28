@@ -2,6 +2,8 @@
 
 My custom made IDE
 
+![alt text for screen readers](screenshots/screenshot_01.png).
+
 ## Launching
 
 install pygubu before running from pip

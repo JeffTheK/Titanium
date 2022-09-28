@@ -25,6 +25,7 @@ class Transcript:
         builder.connect_callbacks(self)
 
         code_actions_menu.setup(self.mainwindow, self.edit_area.text)
+        self.selected_language = "python"
 
         tkinter_themes.setup_global_tkinter_theme(self.mainwindow)
 

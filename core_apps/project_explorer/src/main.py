@@ -43,11 +43,11 @@ class MainApp:
         self.load_projects()
         code_actions_menu.setup(self.mainwindow, self.edit_area.text)
 
-        irontk.popup_menu.setup(self.project_tree)
+        self.project_tree.popup_menu = irontk.popup_menu.PopupMenu(self.project_tree)
         self.project_tree.popup_menu.add_command(label="Run Project", command=lambda: project_runner.run_project(self.selected_project.path))
         self.project_tree.popup_menu.add_command(label="New Project", command=lambda: project_runner.run_project(PROJECT_CREATOR_PATH))
 
-        irontk.popup_menu.setup(self.file_tree)
+        self.file_tree.popup_menu = irontk.popup_menu.PopupMenu(self.file_tree)
         self.file_tree.popup_menu.add_command(label="New File", command=lambda: self.new_file())
         self.file_tree.popup_menu.add_command(label="Rename File", command=lambda: self.rename_file())
         self.file_tree.popup_menu.add_command(label="Run File", command=lambda: self.run_file())

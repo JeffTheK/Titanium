@@ -7,4 +7,5 @@ def run_project(path, args=None):
     run_command = project_json["run_command"]
     if args != None:
         run_command += args
+    run_command += " &"
     os.system(run_command)

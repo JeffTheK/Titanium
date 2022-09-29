@@ -8,6 +8,7 @@ import sys
 from ... import code_actions_menu
 from ... import code_runner
 from ... import tkinter_themes
+from . import cli
 
 PROJECT_PATH = pathlib.Path(__file__).parent
 PROJECT_UI = PROJECT_PATH / "main.ui"
@@ -43,4 +44,6 @@ class Transcript:
 
 if __name__ == "__main__":
     app = Transcript()
+    if len(sys.argv) > 1:
+        cli.cli(sys.argv, app)
     app.run()

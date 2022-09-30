@@ -68,6 +68,7 @@ class MainApp:
 
         system_apps = tk.Menu(self.menubar, tearoff=0)
         self.menubar.add_cascade(label="System", menu=system_apps)
+        system_apps.add_command(label="Terminal", command=lambda: project_runner.run_project("core_apps/terminal"))
         system_apps.add_command(label="Finder", command=lambda: project_runner.run_project("core_apps/finder"))
         system_apps.add_command(label="Screenshot", command=lambda: project_runner.run_project("core_apps/screenshot"))
         system_apps.add_command(label="Screen Recorder", command=lambda: project_runner.run_project("core_apps/screen_recorder"))

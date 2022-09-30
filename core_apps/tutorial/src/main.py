@@ -20,6 +20,10 @@ class MainApp:
         self.text = builder.get_object("text", master)
         builder.connect_callbacks(self)
         self.setup_pages()
+        children = self.page_tree.get_children()
+        if children:
+            self.page_tree.focus(children[0])
+            self.page_tree.selection_set(children[0])
 
         tkinter_themes.setup_global_tkinter_theme(self.mainwindow)
 

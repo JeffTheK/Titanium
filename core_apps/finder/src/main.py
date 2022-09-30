@@ -8,7 +8,7 @@ from ... import tkinter_themes
 
 PROJECT_PATH = pathlib.Path(__file__).parent
 PROJECT_UI = PROJECT_PATH / "main.ui"
-SEARCH_LOCATIONS = [PROJECT_PATH.parent.parent]
+SEARCH_LOCATION = PROJECT_PATH.parent.parent
 
 class Finder:
     def __init__(self, master=None):
@@ -17,6 +17,8 @@ class Finder:
         builder.add_from_file(PROJECT_UI)
         self.mainwindow = builder.get_object("toplevel1", master)
         self.search_entry = builder.get_object("search_entry", master)
+        self.search_path_entry = builder.get_object("search_path_entry")
+        self.search_path_entry.insert("0", SEARCH_LOCATION)
         self.results_tree = builder.get_object("results_tree", master)
         builder.connect_callbacks(self)
 
@@ -31,9 +33,10 @@ class Finder:
     def search(self):
         found_items = []
         search_term = self.search_entry.get()
-        for search_location in SEARCH_LOCATIONS:
-            print(search_location)
-            found_items += search_location.rglob(f"*{search_term}*")
+        search_location = self.search_path_entry.get()
+        search_location = pathlib.Path(search_location)
+        print(search_location)
+        found_items += search_location.rglob(f"*{search_term}*")
         self.clear_results_tree()
         for item in found_items:
             self.results_tree.insert("", tk.END, text=item, values=item)

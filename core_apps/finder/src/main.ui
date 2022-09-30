@@ -21,7 +21,6 @@
         <containerlayout manager="grid">
           <property name="anchor">center</property>
           <property type="col" id="0" name="weight">1</property>
-          <property type="col" id="1" name="weight">1</property>
           <property type="row" id="1" name="weight">1</property>
         </containerlayout>
         <child>
@@ -53,11 +52,33 @@
             <property name="selectmode">extended</property>
             <layout manager="grid">
               <property name="column">0</property>
-              <property name="columnspan">2</property>
+              <property name="columnspan">4</property>
               <property name="padx">5</property>
               <property name="pady">5</property>
               <property name="row">1</property>
               <property name="sticky">nsew</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Label" id="search_path_label">
+            <property name="text" translatable="yes">Search path:</property>
+            <layout manager="grid">
+              <property name="column">2</property>
+              <property name="padx">5</property>
+              <property name="pady">5</property>
+              <property name="row">0</property>
+              <property name="sticky">w</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="ttk.Entry" id="search_path_entry">
+            <layout manager="grid">
+              <property name="column">3</property>
+              <property name="padx">5</property>
+              <property name="pady">5</property>
+              <property name="row">0</property>
             </layout>
           </object>
         </child>

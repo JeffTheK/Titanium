@@ -1,5 +1,4 @@
 #!/usr/bin/python3
-from symbol import term
 import tkinter as tk
 import tkinter.ttk as ttk
 from . import terminal

@@ -1,4 +1,3 @@
-import imp
 import tkinter as tk
 import tkinter.ttk as ttk
 import string

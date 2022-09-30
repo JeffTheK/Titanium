@@ -17,6 +17,7 @@ class MainApp:
         builder.add_from_file(PROJECT_UI)
         self.mainwindow = builder.get_object("toplevel1", master)
         self.page_tree = builder.get_object("page_tree", master)
+        self.page_tree.heading("#0", text="Pages")
         self.text = builder.get_object("text", master)
         builder.connect_callbacks(self)
         self.setup_pages()

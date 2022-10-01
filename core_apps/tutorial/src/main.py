@@ -1,10 +1,12 @@
 #!/usr/bin/python3
+import imp
 import pathlib
 import tkinter.ttk as ttk
 import tkinter as tk
 import pygubu
 import os
 from ... import tkinter_themes
+from tkfontawesome import icon_to_image
 
 PROJECT_PATH = pathlib.Path(__file__).parent
 PROJECT_UI = PROJECT_PATH / "main.ui"
@@ -19,6 +21,7 @@ class MainApp:
         self.page_tree = builder.get_object("page_tree", master)
         self.page_tree.heading("#0", text="Pages")
         self.text = builder.get_object("text", master)
+        self.page_icon = icon_to_image("file-alt", scale_to_height=16)
         builder.connect_callbacks(self)
         self.setup_pages()
         children = self.page_tree.get_children()
@@ -33,7 +36,7 @@ class MainApp:
 
     def setup_pages(self):
         for page in PAGES_PATH.iterdir():
-            self.page_tree.insert('', tk.END, values=str(page.absolute()), text=page.name)
+            self.page_tree.insert('', tk.END, values=str(page.absolute()), text=" " + page.name, image=self.page_icon)
         self.page_tree.focus_set()
 
     def on_page_select(self, event=None):

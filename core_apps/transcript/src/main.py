@@ -23,9 +23,11 @@ class Transcript:
         self.edit_area = builder.get_object("edit_area")
         self.edit_area.text = builder.get_object("text", self.edit_area)
         self.language_option = builder.get_object("language_option", master)
+        self.do_it_button = builder.get_object("do_it_button", master)
         builder.connect_callbacks(self)
 
-        code_actions_menu.setup(self.mainwindow, self.edit_area.text)
+        code_actions_menu.setup(self.edit_area.text, self.edit_area.text)
+        self.do_it_button.config(image=self.edit_area.text.code_actions_widget.do_it_icon)
         self.selected_language = "python"
 
         tkinter_themes.setup_global_tkinter_theme(self.mainwindow)

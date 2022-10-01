@@ -3,7 +3,10 @@ import tkinter.ttk as ttk
 import string
 import subprocess
 
-from numpy import append
+TYPABLE_CHARS = list(string.ascii_letters)
+TYPABLE_CHARS.append(" ")
+TYPABLE_CHARS.extend(list("123456789"))
+TYPABLE_CHARS.extend(list("~!@#$%^&*()-=_+{};:'\"\\|/,.<>"))
 
 class Terminal(tk.Listbox):
     def __init__(self, master):
@@ -23,6 +26,10 @@ class Terminal(tk.Listbox):
     def execute_current_line(self):
         self.current_line_text
         command = self.current_line_text[2:]
+        if command == "clear":
+            self.delete(0, tk.END)
+            self.new_line()
+            return
         try:
             result = subprocess.run([command], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         except FileNotFoundError:
@@ -30,9 +37,16 @@ class Terminal(tk.Listbox):
             self.new_line()
             return
 
-        self.new_line(start="")
-        self.append_to_current_line(result.stdout.decode('utf-8').replace("\n", " "))
+        result_text = result.stdout.decode('utf-8')
+        if result_text.count("\n") > 0:
+            for line in result_text.split("\n"):
+                self.new_line(start="")
+                self.append_to_current_line(line)
+        else:
+            self.new_line(start="")
+            self.append_to_current_line(result.stdout.decode('utf-8'))
         self.new_line()
+        self.yview(tk.END)
 
     def new_line(self, start="$ "):
         self.insert(tk.END, start)
@@ -46,12 +60,7 @@ class Terminal(tk.Listbox):
         self.delete(tk.END)
         self.insert(tk.END, self.current_line_text)
 
-    def on_enter(self):
-        pass
-
     def on_key_press(self, event):
         print(event)
-        if event.char in string.ascii_letters:
-            char = event.char
-            if char in string.ascii_letters:
-                self.append_to_current_line(char)
+        if event.char in TYPABLE_CHARS:
+            self.append_to_current_line(event.char)

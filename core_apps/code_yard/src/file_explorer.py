@@ -1,8 +1,10 @@
+from genericpath import isfile
 import tkinter as tk
 import tkinter.ttk as ttk
 import os
 import tkinter.messagebox
 from .file import File
+from tkfontawesome import icon_to_image
 
 class FileExplorer(ttk.Frame):
     def __init__(self, master, code_yard):
@@ -12,7 +14,9 @@ class FileExplorer(ttk.Frame):
         self.tree = ttk.Treeview(self, height=20)
         self.tree.grid(column=0, row=0, padx=5, pady=5, sticky="ns")
         self.tree.bind("<<TreeviewSelect>>", lambda _: self.on_tree_item_select())
-    
+        self.file_icon = icon_to_image("file", scale_to_height=16, fill="#1D9F75")
+        self.folder_icon = icon_to_image("folder", scale_to_height=16, fill="#ebab34")
+
     def clear(self):
         self.tree.delete(*self.tree.get_children())
 
@@ -23,7 +27,10 @@ class FileExplorer(ttk.Frame):
     def walk_directory(self, parent_dir, path):
         for item in os.listdir(path):
             item_full_path = os.path.join(path, item)
-            self.tree.insert("", "end", iid=item_full_path, values=(item, item_full_path), text=item, open=False)
+            if os.path.isfile(item_full_path):
+                self.tree.insert("", "end", iid=item_full_path, values=(item, item_full_path), text=" " + str(item), open=False, image=self.file_icon)
+            else:
+                self.tree.insert("", "end", iid=item_full_path, values=(item, item_full_path), text=" " + str(item), open=False, image=self.folder_icon)
             if parent_dir != "":
                 self.tree.move(item_full_path, path, "end")
             if os.path.isdir(item_full_path):

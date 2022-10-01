@@ -39,7 +39,7 @@ class Transcript:
 
     def on_language_selected(self, selection):
         self.selected_language = selection.lower()
-        self.mainwindow.code_actions_widget.language = self.selected_language
+        self.edit_area.text.code_actions_widget.language = self.selected_language
 
     def run(self):
         self.mainwindow.mainloop()

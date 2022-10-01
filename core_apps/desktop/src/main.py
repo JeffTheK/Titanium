@@ -8,6 +8,7 @@ import os
 import json
 from ... import project_runner
 from ... import tkinter_themes
+from .icons import Icons
 
 PROJECT_PATH = pathlib.Path(__file__).parent
 PROJECT_UI = PROJECT_PATH / "main.ui"
@@ -22,6 +23,7 @@ class MainApp:
         builder.add_from_file(PROJECT_UI)
         self.mainwindow = builder.get_object("toplevel1", master)
         builder.connect_callbacks(self)
+        self.icons = Icons()
         self.setup_menu()
         self.load_settings()
 
@@ -54,35 +56,35 @@ class MainApp:
         self.menubar = tk.Menu(self.mainwindow)
 
         titanium_menu = tk.Menu(self.menubar, tearoff=0)
-        self.menubar.add_cascade(label="Titanium", menu=titanium_menu)
-        titanium_menu.add_command(label="Settings", command=lambda: project_runner.run_project("core_apps/settings"))
+        self.menubar.add_cascade(label="Titanium", menu=titanium_menu, image=self.icons.TITANIUM_ICON, compound=tk.LEFT)
+        titanium_menu.add_command(label="Settings", command=lambda: project_runner.run_project("core_apps/settings"), image=self.icons.SETTINGS_ICON, compound=tk.LEFT)
 
         code_tools = tk.Menu(self.menubar, tearoff=0)
-        self.menubar.add_cascade(label="Code Tools", menu=code_tools)
-        code_tools.add_command(label="Transcript", command=lambda: project_runner.run_project("core_apps/transcript"))
-        code_tools.add_command(label="Project Explorer", command=lambda: project_runner.run_project("core_apps/project_explorer"))
-        code_tools.add_command(label="Code Yard", command=lambda: project_runner.run_project("core_apps/code_yard"))
+        self.menubar.add_cascade(label="Code Tools", menu=code_tools, image=self.icons.CODE_TOOLS_ICON, compound=tk.LEFT)
+        code_tools.add_command(label="Transcript", command=lambda: project_runner.run_project("core_apps/transcript"), image=self.icons.TRANSCRIPT_ICON, compound=tk.LEFT)
+        code_tools.add_command(label="Project Explorer", command=lambda: project_runner.run_project("core_apps/project_explorer"), image=self.icons.PROJECT_EXPLORER_ICON, compound=tk.LEFT)
+        code_tools.add_command(label="Code Yard", command=lambda: project_runner.run_project("core_apps/code_yard"), image=self.icons.CODE_YARD_ICON, compound=tk.LEFT)
         code_tools_other = tk.Menu(code_tools, tearoff=0)
         code_tools_other.add_command(label="Project Creator", command=lambda: project_runner.run_project("core_apps/project_creator"))
         code_tools.add_cascade(label="Other", menu=code_tools_other)
 
         system_apps = tk.Menu(self.menubar, tearoff=0)
-        self.menubar.add_cascade(label="System", menu=system_apps)
-        system_apps.add_command(label="Terminal", command=lambda: project_runner.run_project("core_apps/terminal"))
-        system_apps.add_command(label="Finder", command=lambda: project_runner.run_project("core_apps/finder"))
-        system_apps.add_command(label="Screenshot", command=lambda: project_runner.run_project("core_apps/screenshot"))
-        system_apps.add_command(label="Screen Recorder", command=lambda: project_runner.run_project("core_apps/screen_recorder"))
+        self.menubar.add_cascade(label="System", menu=system_apps, image=self.icons.SYSTEM_ICON, compound=tk.LEFT)
+        system_apps.add_command(label="Terminal", command=lambda: project_runner.run_project("core_apps/terminal"), image=self.icons.TERMINAL_ICON, compound=tk.LEFT)
+        system_apps.add_command(label="Finder", command=lambda: project_runner.run_project("core_apps/finder"), image=self.icons.FINDER_ICON, compound=tk.LEFT)
+        system_apps.add_command(label="Screenshot", command=lambda: project_runner.run_project("core_apps/screenshot"), image=self.icons.SCREENSHOT_ICON, compound=tk.LEFT)
+        system_apps.add_command(label="Screen Recorder", command=lambda: project_runner.run_project("core_apps/screen_recorder"), image=self.icons.SCREEN_RECORDER_ICON, compound=tk.LEFT)
 
         help_apps = tk.Menu(self.menubar, tearoff=0)
-        help_apps.add_command(label="Tutorial", command=lambda: project_runner.run_project("core_apps/tutorial"))
+        help_apps.add_command(label="Tutorial", command=lambda: project_runner.run_project("core_apps/tutorial"), image=self.icons.TUTORIAL_ICON, compound=tk.LEFT)
         if (self.exe_exists("zeal")):
-            help_apps.add_command(label="Zeal", command=lambda: os.system("zeal"))
+            help_apps.add_command(label="Zeal", command=lambda: os.system("zeal"), image=self.icons.ZEAL_ICON, compound=tk.LEFT)
         else:
             help_apps.add_command(label="Zeal", command=lambda: os.system("zeal"), state=tk.DISABLED)
-        self.menubar.add_cascade(label="Help", menu=help_apps)
+        self.menubar.add_cascade(label="Help", menu=help_apps, image=self.icons.HELP_ICON, compound=tk.LEFT)
 
         other_apps = tk.Menu(self.menubar, tearoff=0)
-        self.menubar.add_cascade(label="Other", menu=other_apps)
+        self.menubar.add_cascade(label="Other", menu=other_apps, image=self.icons.OTHER_ICON, compound=tk.LEFT)
         other_apps.add_command(label="Zen Installer", command=lambda: project_runner.run_project("core_apps/zen_installer"))
 
         self.mainwindow.config(menu=self.menubar)

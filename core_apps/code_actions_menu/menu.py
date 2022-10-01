@@ -1,5 +1,6 @@
 import tkinter.ttk as ttk
 import tkinter as tk
+from black import out
 import pygubu
 import sys
 from pathlib import Path
@@ -28,7 +29,10 @@ class CodeActionsWidget:
     def do_it_in_new_window(self):
         code = self.edit_area_text.get(tk.SEL_FIRST, tk.SEL_LAST)
         output, out_text = code_runner.run_code(code, self.language)
-        project_runner.run_project("core_apps/transcript", "-text \"kek\"")
+        if output != None:
+            project_runner.run_project("core_apps/transcript", f"-text \"{out_text} {output}\"")
+        else:
+            project_runner.run_project("core_apps/transcript", f"-text \"{out_text}\"")
 
 def setup(master, edit_area_text):
     widget = CodeActionsWidget(master, edit_area_text)

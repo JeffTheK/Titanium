@@ -22,6 +22,7 @@ class FileExplorer(ttk.Frame):
 
     def redraw(self, directory):
         self.clear()
+        self.tree.heading("#0", text=directory)
         self.walk_directory("", directory)
 
     def walk_directory(self, parent_dir, path):

@@ -1,1 +1,1 @@
-from .menu import setup
+from .menu import setup, CodeActionsWidget

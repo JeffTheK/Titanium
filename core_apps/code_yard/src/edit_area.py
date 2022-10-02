@@ -1,5 +1,6 @@
 import tkinter as tk
 import tkinter.ttk as ttk
+from ... import code_actions_menu
 
 class EditArea(ttk.Frame):
     def __init__(self, master, code_yard):
@@ -11,6 +12,7 @@ class EditArea(ttk.Frame):
         self.text = tk.Text(self)
         self.text.grid(column=0, row=1, sticky="nsew")
         self.text.bind("<Key>", lambda _: self.on_text_changed())
+        self.text.code_actions_widget = code_actions_menu.CodeActionsWidget(self.text, self.text)
     
     def on_text_changed(self):
         if self.code_yard.selected_file != None:

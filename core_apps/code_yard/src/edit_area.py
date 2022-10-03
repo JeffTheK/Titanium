@@ -1,6 +1,7 @@
 import tkinter as tk
 import tkinter.ttk as ttk
 from ... import code_actions_menu
+from ... import tk_syntax_highlight
 
 class EditArea(ttk.Frame):
     def __init__(self, master, code_yard):
@@ -13,6 +14,7 @@ class EditArea(ttk.Frame):
         self.text.grid(column=0, row=1, sticky="nsew")
         self.text.bind("<Key>", lambda _: self.on_text_changed())
         self.text.code_actions_widget = code_actions_menu.CodeActionsWidget(self.text, self.text)
+        self.text.bind("<KeyRelease>", lambda _: tk_syntax_highlight.highlight(self.text.get("1.0", tk.END), code_yard.selected_language, self.text))
     
     def on_text_changed(self):
         if self.code_yard.selected_file != None:

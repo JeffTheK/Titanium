@@ -24,6 +24,7 @@ class CodeYard:
 
         self.selected_directory = os.getcwd()
         self.selected_file = None
+        self.selected_language = "python"
 
         # Main widget
         self.mainwindow = self.frame1

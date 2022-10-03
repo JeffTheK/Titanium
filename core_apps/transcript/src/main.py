@@ -8,6 +8,7 @@ import sys
 from ... import code_actions_menu
 from ... import code_runner
 from ... import tkinter_themes
+from ... import tk_syntax_highlight
 from . import cli
 
 PROJECT_PATH = pathlib.Path(__file__).parent
@@ -28,6 +29,7 @@ class Transcript:
 
         code_actions_menu.setup(self.edit_area.text, self.edit_area.text)
         self.do_it_button.config(image=self.edit_area.text.code_actions_widget.do_it_icon)
+        self.edit_area.text.bind("<Key>", lambda _: tk_syntax_highlight.highlight(self.edit_area.text.get("1.0", tk.END), self.selected_language, self.edit_area.text))
         self.selected_language = "python"
 
         tkinter_themes.setup_global_tkinter_theme(self.mainwindow)

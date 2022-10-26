@@ -1,10 +1,12 @@
 #!/usr/bin/python3
+# pylint: disable=missing-module-docstring
 import tkinter as tk
-import tkinter.ttk as ttk
+from tkinter import ttk
 import webbrowser
 import platform
 
 class ZenInstaller:
+    """Installs useful programs for developing"""
     def __init__(self, master=None):
         # build ui
         master.title("Zen Installer")
@@ -25,13 +27,16 @@ class ZenInstaller:
         self.main_window = self.main_frame
 
     def install_zeal(self):
+        """Installs zeal offline documentation reader"""
         webbrowser.open("https://zealdocs.org/")
 
     def install_gcc(self):
-        if (platform.system() == "Windows"):
+        """Installs gnu c/c++ compiler"""
+        if platform.system() == "Windows":
             webbrowser.open("https://cygwin.com/install.html")
 
     def run(self):
+        """Runs the app"""
         self.main_window.mainloop()
 
 if __name__ == "__main__":

@@ -1,0 +1,3 @@
+[MAIN]
+
+ignore=README.md,__version__.py
